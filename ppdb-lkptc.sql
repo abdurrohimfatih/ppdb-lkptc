@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2022 at 01:23 PM
+-- Generation Time: Nov 04, 2022 at 05:55 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -35,7 +35,7 @@ CREATE TABLE `biodata` (
   `tempat_lahir` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
   `jenis_kelamin` varchar(2) COLLATE utf8mb4_unicode_ci DEFAULT 'L',
-  `status_perkawinan` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status_perkawinan` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `agama` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `anak_ke` smallint(6) DEFAULT NULL,
   `jumlah_saudara` smallint(6) DEFAULT NULL,
@@ -47,6 +47,13 @@ CREATE TABLE `biodata` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `biodata`
+--
+
+INSERT INTO `biodata` (`id`, `user_id`, `nama_lengkap`, `no_telp`, `tempat_lahir`, `tgl_lahir`, `jenis_kelamin`, `status_perkawinan`, `agama`, `anak_ke`, `jumlah_saudara`, `alamat_lengkap`, `img_user`, `jalur_tes`, `konfirmasi`, `status`, `created_at`, `updated_at`) VALUES
+(1, 4, 'Abdurrohim', '08111111111111', 'Cirebon', '2022-11-04', 'L', 'Belum Kawin', 'Islam', 9, 8, 'Cirebon', '', 1, 0, 1, '2022-11-04 09:44:11', '2022-11-04 09:45:03');
 
 -- --------------------------------------------------------
 
@@ -76,7 +83,6 @@ CREATE TABLE `data_keluarga` (
 --
 
 INSERT INTO `data_keluarga` (`id`, `user_id`, `nama_ayah`, `nama_ibu`, `pekerjaan_ayah`, `pekerjaan_ibu`, `usia_ayah`, `usia_ibu`, `alamat_ayah`, `alamat_ibu`, `no_telp_ayah`, `no_telp_ibu`, `created_at`, `updated_at`) VALUES
-(1, 3, 'ayah', 'ibu', 'pekerjaan ayah', 'pekerjaan ibu', 54, 40, 'cisoka', 'cisoka', '21341234123', '532452345234', '2022-11-03 07:28:56', '2022-11-03 07:28:56'),
 (2, 4, 'Abc', 'Abc', 'Abc', 'Abc', 10, 10, 'Abc', 'Abc', '081111111111', '08111111111111', '2022-11-03 00:30:27', '2022-11-03 00:30:27');
 
 -- --------------------------------------------------------
@@ -221,8 +227,6 @@ CREATE TABLE `post_jurusan` (
 --
 
 INSERT INTO `post_jurusan` (`id`, `user_id`, `jurusan_id`, `kat`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, 1, '2022-11-02 04:30:07', '2022-11-02 04:30:07'),
-(2, 3, 2, 2, '2022-11-02 04:30:07', '2022-11-02 04:30:07'),
 (3, 4, 3, 1, '2022-11-03 00:33:22', '2022-11-03 19:08:31'),
 (4, 4, 1, 2, '2022-11-03 00:33:22', '2022-11-03 19:08:31'),
 (5, 5, 3, 1, '2022-11-04 00:42:11', '2022-11-04 00:42:11'),
@@ -295,10 +299,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$eDqzVg19aCMCFMt0epIs5.hNyQ.KHAAu8hnnxkx1Bte5fQncIkNUK', 3, 'AEkoC33qgsnG8LKZFWgKlJLv5dq4SB4uyw1MGI3LE49lQzSQbT5IEvHy7Oz9', '2022-10-31 14:50:22', NULL),
+(1, 'admin', 'admin@gmail.com', '$2y$10$eDqzVg19aCMCFMt0epIs5.hNyQ.KHAAu8hnnxkx1Bte5fQncIkNUK', 3, 'ndyFZOKCSiOFgYIR7WXlciMgw6HLDWW7D2bY8DtKeM6nMBR59C69Rmiay9GC', '2022-10-31 14:50:22', NULL),
 (2, 'pengawas', 'pengawas@gmail.com', '$2y$10$mYMobBv4JWy.KTBLiKA/jeCHDsK9iKfbWoJb1PWO55navVY195HYi', 2, 'IxYHJ9vIBngT4BKS5sUnHOjCt9u4dePAnQJksyGuZXff00TzuzSMXa1Eehsk', '2022-10-31 14:50:22', NULL),
-(3, 'user', 'user@gmail.com', '$2y$10$K0pT2AWYIC9hhvkuPWRSc.OAD..TFUn.xj/aGd2M93C7H/AyCL5km', 1, '00eQW97HwfectXeCvLuwUxhznErzF99GfR8Vj89nyWy8bvdxf4iaNQpssipQ', '2022-10-31 14:50:22', NULL),
-(4, 'Abdurrohim', 'abdurrohim130201@gmail.com', '$2y$10$cw6vtGYBMNpnWf9azpIqKu/ChkaQgT/AVv8IJDY0qL3wzaa/OczR6', 1, 'B0AZuarfeEXUFV5A2um5jpPcle0Y9NlI61sKZ2draynPNpplwY1XQ5XaS1rX', '2022-11-03 00:29:58', '2022-11-03 00:29:58'),
+(4, 'Abdurrohim', 'abdurrohim130201@gmail.com', '$2y$10$cw6vtGYBMNpnWf9azpIqKu/ChkaQgT/AVv8IJDY0qL3wzaa/OczR6', 1, 'PtItw4iJx9tvpgVOa1B9syRFBNeyOGyTGCCl9kUU8ebuUmVxscQQuLJGKglK', '2022-11-03 00:29:58', '2022-11-03 00:29:58'),
 (5, 'Budi', 'budi@gmail.com', '$2y$10$SiAzzheGvkTg1reUkloxV.VTi.sbtaRnCxSXMb5cRnoDMXG0EOb4e', 1, 'K7VSICAh2Hg4Mzp57tkdrLJeBzAprsYzm3LlGY7GzWlxDKTyx5StqOwy4mz7', '2022-11-04 00:41:27', '2022-11-04 00:41:27');
 
 --
@@ -398,7 +401,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `biodata`
 --
 ALTER TABLE `biodata`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `data_keluarga`
@@ -468,7 +471,7 @@ ALTER TABLE `users`
 -- Constraints for table `biodata`
 --
 ALTER TABLE `biodata`
-  ADD CONSTRAINT `biodata_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `biodata_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_keluarga`

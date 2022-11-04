@@ -23,6 +23,7 @@
                                 <th>NO</th>
                                 <th>NAMA</th>
                                 <th>EMAIL</th>
+                                <th>ALAMAT</th>
                                 <th>PILIHAN 1</th>
                                 <th>PILIHAN 2</th>
                                 <th>NILAI MATEMATIKA</th>
@@ -34,8 +35,25 @@
                             @foreach($user as $u)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$u->name}}</td>
+
+                                @if ($u->biodata->isNotEmpty())
+                                    @foreach ($u->biodata as $b)
+                                        <td>{{$b->nama_lengkap}}</td>
+                                    @endforeach
+                                @else
+                                    <td><i class="link-danger">belum diisi</i></td>
+                                @endif
+
                                 <td>{{$u->email}}</td>
+
+                                @if ($u->biodata->isNotEmpty())
+                                    @foreach ($u->biodata as $b)
+                                        <td>{{$b->alamat_lengkap}}</td>
+                                    @endforeach
+                                @else
+                                    <td><i class="link-danger">belum diisi</i></td>
+                                @endif
+
                                 @if ($u->jurusan->isNotEmpty())
                                     @foreach ($u->jurusan as $j)
                                         <td>{{$j->jurusan_name}}</td>
@@ -44,8 +62,6 @@
                                     <td><i class="link-danger">belum diisi</i></td>
                                     <td><i class="link-danger">belum diisi</i></td>
                                 @endif
-
-
 
                                 @if ($u->postNilai->isNotEmpty())
                                 @foreach ($u->postNilai as $n)

@@ -43,6 +43,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function biodata()
+    {
+        return $this->hasMany(Biodata::class);
+    }
+
     public function jurusan()
     {
         return $this->belongsToMany(Jurusan::class, 'post_jurusan', 'user_id', 'jurusan_id');
