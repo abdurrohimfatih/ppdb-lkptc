@@ -60,6 +60,7 @@
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/feather.min.js')}}"></script>
 <script src="{{asset('js/perfect-scrollbar.min.js')}}"></script>
+<script src="{{asset('js/table2excel.js')}}"></script>
 <!-- end base js -->
 
 <!-- plugin js -->
@@ -70,6 +71,14 @@
 <!-- common js -->
 <script src="{{asset('js/template.js')}}"></script>
 <!-- end common js -->
+
+<script>
+    $('#export').on('click', function() {
+        var table2excel = new Table2Excel();
+        var table = $('#table');
+        table2excel.export(table, "Data Pendaftar PPDB LKP TC");
+    });
+</script>
 
 </body>
 </html>

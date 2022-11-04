@@ -14,17 +14,19 @@
                 {{-- This menu only for user level 2 and 3--}}
                 @if(\Illuminate\Support\Facades\Auth::user()->level >= 2)
                 <p class="text-muted mb-3">Data Pendaftar</p>
+                {{-- <a href="{{route('export')}}" class="btn btn-success">Excel</a> --}}
+                <button id="export" class="btn btn-success">Excel</button>
                 <div class="table-responsive pt-3">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="table">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Pilihan 1</th>
-                                <th>Pilihan 2</th>
-                                <th>Nilai Matematika</th>
-                                <th>Nilai B. Inggris</th>
+                                <th>NO</th>
+                                <th>NAMA</th>
+                                <th>EMAIL</th>
+                                <th>PILIHAN 1</th>
+                                <th>PILIHAN 2</th>
+                                <th>NILAI MATEMATIKA</th>
+                                <th>NILAI B. INGGRIS</th>
                             </tr>
                         </thead>
                         <tbody>
