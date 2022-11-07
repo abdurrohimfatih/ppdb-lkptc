@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PostNilai::class);
     }
+
+    public function prestasi()
+    {
+        return $this->hasMany(Prestasi::class);
+    }
 }

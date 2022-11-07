@@ -25,26 +25,25 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/',[LoginController::class, 'showLogin'])->name('login');
-Route::get('/login',[LoginController::class, 'showLogin'])->name('login');
-Route::post('/processLogin',[LoginController::class, 'processLogin'])->name('processLogin');
-Route::get('/processLogout',[LoginController::class, 'processLogout'])->name('processLogout');
-Route::get('/register',[RegisterController::class, 'showRegister'])->name('register');
-Route::post('/processRegister',[RegisterController::class, 'processRegister'])->name('processRegister');
+Route::get('/', [LoginController::class, 'showLogin'])->name('login');
+Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+Route::post('/processLogin', [LoginController::class, 'processLogin'])->name('processLogin');
+Route::get('/processLogout', [LoginController::class, 'processLogout'])->name('processLogout');
+Route::get('/register', [RegisterController::class, 'showRegister'])->name('register');
+Route::post('/processRegister', [RegisterController::class, 'processRegister'])->name('processRegister');
 
-Route::group(['middleware' => ['auth', 'level:1, 2, 3']], function(){
-    Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/biodata',[BiodataController::class, 'index'])->name('biodata');
-    Route::post('/biodata/create',[BiodataController::class, 'processBiodata'])->name('processBiodata');
-    Route::get('/jurusan',[JurusanController::class, 'index'])->name('jurusan');
-    Route::post('/storePostJurusan',[JurusanController::class, 'storePostJurusan'])->name('storePostJurusan');
-    Route::post('/jurusan/create', [JurusanController::class, 'processJurusan'])->name('processJurusan');
-    Route::get('/nilai',[NilaiController::class, 'index'])->name('nilai');
-    Route::post('/storePostNilai',[NilaiController::class, 'storePostNilai'])->name('storePostNilai');
-    Route::get('/prestasi',[PrestasiController::class, 'index'])->name('prestasi');
-    Route::post('/storePrestasi',[PrestasiController::class, 'store'])->name('storePrestasi');
-    Route::get('/datakeluarga',[DataKeluargaController::class, 'index'])->name('datakeluarga');
-    Route::post('/datakeluarga/create',[DataKeluargaController::class, 'processDataKeluarga'])->name('processDataKeluarga');
-    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+Route::group(['middleware' => ['auth', 'level:1, 2, 3']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/biodata', [BiodataController::class, 'index'])->name('biodata');
+    Route::post('/biodata/create', [BiodataController::class, 'processBiodata'])->name('processBiodata');
+    Route::get('/jurusan', [JurusanController::class, 'index'])->name('jurusan');
+    Route::post('/storePostJurusan', [JurusanController::class, 'storePostJurusan'])->name('storePostJurusan');
+    // Route::post('/jurusan/create', [JurusanController::class, 'processJurusan'])->name('processJurusan');
+    Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai');
+    Route::post('/storePostNilai', [NilaiController::class, 'storePostNilai'])->name('storePostNilai');
+    Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi');
+    Route::post('/storePrestasi', [PrestasiController::class, 'storePrestasi'])->name('storePrestasi');
+    Route::get('/datakeluarga', [DataKeluargaController::class, 'index'])->name('datakeluarga');
+    Route::post('/datakeluarga/create', [DataKeluargaController::class, 'processDataKeluarga'])->name('processDataKeluarga');
+    // Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
 });
-

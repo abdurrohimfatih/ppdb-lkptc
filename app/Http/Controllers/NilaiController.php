@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Nilai;
 use App\Models\PostNilai;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,23 +14,26 @@ class NilaiController extends Controller
     {
         $nilai = Nilai::all();
         $postnilai = '';
-        if(Auth::user()->level == 1) {
+        if (Auth::user()->level == 1) {
             $postnilai = PostNilai::where('user_id', Auth::user()->id)->get();
+            return view('nilai', compact('nilai', 'postnilai'));
+        } else {
+            $user = User::where('level', 1)->get();
+            return view('nilai', compact('user'));
         }
-        return view('nilai', compact('nilai', 'postnilai'));
     }
 
-    public function storePostNilai( Request $request)
+    public function storePostNilai(Request $request)
     {
         $data = [];
         $error = 1;
-        for ($x=0; $x < count($request->get('nilai_id')); $x++) {
+        for ($x = 0; $x < count($request->get('nilai_id')); $x++) {
             $noId = 0;
             $nilai_id = 0;
-            if(!empty($request->get('id')[$x])) {
+            if (!empty($request->get('id')[$x])) {
                 $noId = $request->get('id')[$x];
             }
-            if(!empty($request->get('nilai_id')[$x])) {
+            if (!empty($request->get('nilai_id')[$x])) {
                 $nilai_id = $request->get('nilai_id')[$x];
             }
 
@@ -46,12 +50,11 @@ class NilaiController extends Controller
             ];
         }
 
-        if(count($data) > 0 ) {
+        if (count($data) > 0) {
             $error = '';
         }
 
-        PostNilai::upsert($data, ['id', 'user_id', 'nilai_id', 'score_s1','score_s2','score_s3','score_s4','score_s5','score_un']);
+        PostNilai::upsert($data, ['id', 'user_id', 'nilai_id', 'score_s1', 'score_s2', 'score_s3', 'score_s4', 'score_s5', 'score_un']);
         return redirect(route('nilai'))->with('error', $error);
-
     }
 }

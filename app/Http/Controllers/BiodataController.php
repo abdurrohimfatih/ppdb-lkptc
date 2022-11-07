@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Biodata;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,13 +12,14 @@ class BiodataController extends Controller
 {
     public function index()
     {
-        $biodata = Biodata::all();
-        if(Auth::user()->level == 1) {
+        if (Auth::user()->level == 1) {
             $user_id = Auth::user()->id;
             $biodata = Biodata::where('user_id', $user_id)->first();
+            return view('biodata', ['biodata' => $biodata])->with('error', 0);
+        } else {
+            $user = User::where('level', 1)->get();
+            return view('biodata', compact('user'));
         }
-
-        return view('biodata', ['biodata' => $biodata])->with('error', 0);
     }
 
     public function processBiodata(Request $request)
@@ -30,7 +32,7 @@ class BiodataController extends Controller
 
         try {
 
-            if($request->id > 0) {
+            if ($request->id > 0) {
                 // update data
                 $method = 'update';
                 $biodata = Biodata::find($request->id);
@@ -42,12 +44,12 @@ class BiodataController extends Controller
 
             // upload img
             $imgname = "";
-            if($request->hasFile('img_user')){
+            if ($request->hasFile('img_user')) {
                 $request->validate([
                     'image' => 'mimes:jpeg,bmp,png,jpg'
                 ]);
 
-                $request->img_user->store('upload/img','public');
+                $request->img_user->store('upload/img', 'public');
                 $imgname = $request->img_user->hashName();
             }
 
@@ -62,11 +64,11 @@ class BiodataController extends Controller
             $biodata->anak_ke = $request->anak_ke;
             $biodata->jumlah_saudara = $request->jumlah_saudara;
             $biodata->alamat_lengkap = $request->alamat_lengkap;
-            if($method == 'update') {
-                if(!empty($imgname)) {
+            if ($method == 'update') {
+                if (!empty($imgname)) {
                     $biodata->img_user = $imgname;
                 }
-            } else{
+            } else {
                 $biodata->img_user = $imgname;
             }
 
@@ -76,8 +78,7 @@ class BiodataController extends Controller
             $biodata->save();
 
             return redirect(route('biodata'))->with('error', '');
-
-        } catch (QueryException $e){
+        } catch (QueryException $e) {
             return redirect(route('biodata'))->with('error', 1);
         }
     }
