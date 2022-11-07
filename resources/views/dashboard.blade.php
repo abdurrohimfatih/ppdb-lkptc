@@ -14,7 +14,8 @@
                     @if (\Illuminate\Support\Facades\Auth::user()->level >= 2)
                         <p class="text-muted mb-3">Data Pendaftar</p>
                         <div class="table-responsive pt-3">
-                            <table class="table table-bordered table-striped table-hover" id="table">
+                            <table class="table table-bordered table-striped table-hover" id="table"
+                                data-fileName="Data Pendaftar">
                                 <thead>
                                     <tr>
                                         <th>NO</th>

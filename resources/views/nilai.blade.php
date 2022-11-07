@@ -11,7 +11,8 @@
                     @if (\Illuminate\Support\Facades\Auth::user()->level >= 2)
                         <p class="text-muted mb-3">Nilai Pendaftar</p>
                         <div class="table-responsive pt-3">
-                            <table class="table table-bordered table-striped table-hover" id="table">
+                            <table class="table table-bordered table-striped table-hover" id="table"
+                                data-fileName="Nilai Pendaftar">
                                 <thead>
                                     <tr>
                                         <th rowspan="2" class="align-middle">NO</th>

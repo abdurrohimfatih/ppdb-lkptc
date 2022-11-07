@@ -10,7 +10,8 @@
                     @if (\Illuminate\Support\Facades\Auth::user()->level >= 2)
                         <p class="text-muted mb-3">Biodata Pendaftar</p>
                         <div class="table-responsive pt-3">
-                            <table class="table table-bordered table-striped table-hover" id="table">
+                            <table class="table table-bordered table-striped table-hover" id="table"
+                                data-fileName="Biodata Pendaftar">
                                 <thead>
                                     <tr>
                                         <th>NO</th>

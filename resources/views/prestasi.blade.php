@@ -9,9 +9,10 @@
 
                     {{-- This menu only for user level 2 and 3 --}}
                     @if (\Illuminate\Support\Facades\Auth::user()->level >= 2)
-                        <p class="text-muted mb-3">Jurusan Pendaftar</p>
+                        <p class="text-muted mb-3">Prestasi Pendaftar</p>
                         <div class="table-responsive pt-3">
-                            <table class="table table-bordered table-striped table-hover" id="table">
+                            <table class="table table-bordered table-striped table-hover" id="table"
+                                data-fileName="Prestasi Pendaftar">
                                 <thead>
                                     <tr>
                                         <th>NO</th>

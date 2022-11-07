@@ -83,10 +83,7 @@
 
     <script>
         var table = $('#table');
-        // $('#excel').on('click', function() {
-        //     var table2excel = new Table2Excel();
-        //     table2excel.export(table, "Data Pendaftar PPDB LKP TC");
-        // });
+        var fileName = table.attr("data-fileName");
 
         $(document).ready(function() {
             var tabel = $('#table').DataTable({
@@ -99,20 +96,20 @@
                 ],
                 buttons: [{
                         extend: 'excelHtml5',
-                        title: 'Data Pendaftar PPDB LKP TC'
+                        title: fileName + ' PPDB LKP TC'
                     },
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
                         pageSize: 'A4',
-                        title: 'Data Pendaftar PPDB LKP TC',
+                        title: fileName + ' PPDB LKP TC',
                         exportOptions: {
                             columns: [0, 1, 2, 4, 6, 7, 8, 9]
                         }
                     },
                     {
                         extend: 'print',
-                        title: 'Data Pendaftar PPDB LKP TC'
+                        title: fileName + ' PPDB LKP TC'
                     }
                 ]
             });
