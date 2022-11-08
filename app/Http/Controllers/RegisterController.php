@@ -29,9 +29,8 @@ class RegisterController extends Controller
         $user->level = 1; // 1 =user
         $user->remember_token = Str::random(60);
         $user->save();
-        if ($user)
-        {
-            return redirect(route('register'))->with('error','');
+        if ($user) {
+            return redirect(route('register'))->with('error', '');
         }
     }
 }

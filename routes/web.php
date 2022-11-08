@@ -46,4 +46,5 @@ Route::group(['middleware' => ['auth', 'level:1, 2, 3']], function () {
     Route::get('/datakeluarga', [DataKeluargaController::class, 'index'])->name('datakeluarga');
     Route::post('/datakeluarga/create', [DataKeluargaController::class, 'processDataKeluarga'])->name('processDataKeluarga');
     // Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+    Route::get('/storeGenerate/{id}/{jenis_kelamin}', [DashboardController::class, 'storeGenerate'])->name('storeGenerate');
 });

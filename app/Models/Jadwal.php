@@ -10,8 +10,8 @@ class Jadwal extends Model
     use HasFactory;
     protected $table = 'jadwal';
 
-    public function biodata()
+    public function user()
     {
-        return $this->belongsToMany(Biodata::class, 'users', 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 }

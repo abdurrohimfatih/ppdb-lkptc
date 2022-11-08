@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Prestasi::class);
     }
+
+//    public function jadwal()
+//    {
+//        return $this->hasOne(Jadwal::class);
+//    }
 }

@@ -31,7 +31,6 @@ class BiodataController extends Controller
         ]);
 
         try {
-
             if ($request->id > 0) {
                 // update data
                 $method = 'update';
