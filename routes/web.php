@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AkunController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataKeluargaController;
 use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\KelulusanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NilaiController;
@@ -46,5 +48,9 @@ Route::group(['middleware' => ['auth', 'level:1, 2, 3']], function () {
     Route::get('/datakeluarga', [DataKeluargaController::class, 'index'])->name('datakeluarga');
     Route::post('/datakeluarga/create', [DataKeluargaController::class, 'processDataKeluarga'])->name('processDataKeluarga');
     // Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
-    Route::get('/storeGenerate/{id}/{jenis_kelamin}', [DashboardController::class, 'storeGenerate'])->name('storeGenerate');
+    Route::get('/kelulusan', [KelulusanController::class, 'index'])->name('kelulusan');
+    Route::post('/processKelulusan', [KelulusanController::class, 'processKelulusan'])->name('processKelulusan');
+    Route::post('/processJadwal', [DashboardController::class, 'processJadwal'])->name('processJadwal');
+    Route::get('/akun', [AkunController::class, 'index'])->name('akun');
+    Route::post('/processReset', [AkunController::class, 'processReset'])->name('processReset');
 });

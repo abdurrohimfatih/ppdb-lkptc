@@ -45,12 +45,12 @@ class User extends Authenticatable
 
     public function biodata()
     {
-        return $this->hasMany(Biodata::class);
+        return $this->hasOne(Biodata::class);
     }
 
     public function jurusan()
     {
-        return $this->belongsToMany(Jurusan::class, 'post_jurusan', 'user_id', 'jurusan_id');
+        return $this->belongsToMany(Jurusan::class, 'post_jurusan', 'user_id', 'jurusan_id')->orderByPivot('kat');
     }
 
     public function postNilai()
@@ -63,8 +63,18 @@ class User extends Authenticatable
         return $this->hasMany(Prestasi::class);
     }
 
-//    public function jadwal()
-//    {
-//        return $this->hasOne(Jadwal::class);
-//    }
+    public function jadwal()
+    {
+        return $this->hasOne(Jadwal::class);
+    }
+
+    public function datakeluarga()
+    {
+        return $this->hasOne(DataKeluarga::class);
+    }
+
+    public function kelulusan()
+    {
+        return $this->hasOne(Kelulusan::class);
+    }
 }

@@ -8,7 +8,7 @@
 
                     {{-- This menu only for user level 2 and 3 --}}
                     @if (\Illuminate\Support\Facades\Auth::user()->level >= 2)
-                        <p class="text-muted mb-3">Biodata Pendaftar</p>
+                        <h6 class="card-title"><b>Biodata Pendaftar</b></h6>
                         <div class="table-responsive pt-3">
                             <table class="table table-bordered table-striped table-hover" id="table"
                                 data-fileName="Biodata Pendaftar">
@@ -34,30 +34,28 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
 
-                                            @if ($u->biodata->isNotEmpty())
-                                                @foreach ($u->biodata as $b)
-                                                    <td>{{ $b->nama_lengkap }}</td>
-                                                    <td>{{ $u->email }}</td>
-                                                    <td>{{ $b->jenis_kelamin }}</td>
-                                                    <td>{{ $b->no_telp }}</td>
-                                                    <td>{{ $b->tempat_lahir }}</td>
+                                            @if ($u->biodata != null)
+                                                <td>{{ $u->biodata->nama_lengkap }}</td>
+                                                <td>{{ $u->email }}</td>
+                                                <td>{{ $u->biodata->jenis_kelamin }}</td>
+                                                <td>{{ $u->biodata->no_telp }}</td>
+                                                <td>{{ $u->biodata->tempat_lahir }}</td>
 
-                                                    @php
-                                                        $date = date_create($b->tgl_lahir);
-                                                    @endphp
+                                                @php
+                                                    $date = date_create($u->biodata->tgl_lahir);
+                                                @endphp
 
-                                                    <td>{{ date_format($date, 'd-m-Y') }}</td>
-                                                    <td>{{ $b->status_perkawinan }}</td>
-                                                    <td>{{ $b->agama }}</td>
-                                                    <td>{{ $b->anak_ke }}</td>
-                                                    <td>{{ $b->jumlah_saudara }}</td>
-                                                    <td>{{ $b->alamat_lengkap }}</td>
-                                                @endforeach
+                                                <td>{{ date_format($date, 'd-m-Y') }}</td>
+                                                <td>{{ $u->biodata->status_perkawinan }}</td>
+                                                <td>{{ $u->biodata->agama }}</td>
+                                                <td>{{ $u->biodata->anak_ke }}</td>
+                                                <td>{{ $u->biodata->jumlah_saudara }}</td>
+                                                <td>{{ $u->biodata->alamat_lengkap }}</td>
                                             @else
-                                                <td><i class="link-danger">belum diisi</i></td>
+                                                <td><i class="link-danger">-</i></td>
                                                 <td>{{ $u->email }}</td>
                                                 @for ($i = 0; $i < 9; $i++)
-                                                    <td><i class="link-danger">belum diisi</i></td>
+                                                    <td><i class="link-danger">-</i></td>
                                                 @endfor
                                             @endif
                                         </tr>
@@ -78,7 +76,8 @@
                         </div>
 
                         <div class="row">
-                            <form action="{{ route('processBiodata') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('processBiodata') }}" method="POST" enctype="multipart/form-data"
+                                id="biodata-form">
                                 {{ csrf_field() }}
 
                                 <h5 class="mt-4">Data Pribadi</h5>
@@ -118,14 +117,15 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap"
                                         placeholder="Masukkan nama lengkap anda"
-                                        value="{{ $biodata->nama_lengkap ?? null }}">
+                                        value="{{ $biodata->nama_lengkap ?? null }}" required>
                                 </div>
 
                                 <div class="mb-3 mt-1">
                                     <label for="no_telp" class="form-label text-muted">No Telepon / WA<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="no_telp" id="no_telp"
-                                        placeholder="Masukkan No Telp/WA anda" value="{{ $biodata->no_telp ?? null }}">
+                                        placeholder="Masukkan No Telp/WA anda" value="{{ $biodata->no_telp ?? null }}"
+                                        required>
                                 </div>
 
                                 <div class="mb-3 mt-1">
@@ -179,11 +179,27 @@
                                 </div>
 
                                 <div class="mb-3 mt-1">
-                                    <label for="status_perkawinan" class="form-label text-muted">Status Perkawinan (Tulis
+                                    <label for="status_perkawinan" class="form-label text-muted">Status Perkawinan (Pilih
                                         Salah Satu)</label>
-                                    <input type="text" class="form-control" name="status_perkawinan"
-                                        id="status_perkawinan" placeholder="Belum Kawin / Kawin / Duda / Janda"
-                                        value="{{ $biodata->status_perkawinan ?? null }}">
+                                    <select name="status_perkawinan" id="status_perkawinan" class="form-control">
+                                        <option value="">Pilih Status Perkawinan</option>
+                                        @if ($biodata != null)
+                                            <option value="Belum Kawin" @if ($biodata->status_perkawinan == 'Belum Kawin') selected @endif>
+                                                Belum
+                                                Kawin</option>
+                                            <option value="Kawin" @if ($biodata->status_perkawinan == 'Kawin') selected @endif>Kawin
+                                            </option>
+                                            <option value="Janda" @if ($biodata->status_perkawinan == 'Janda') selected @endif>Janda
+                                            </option>
+                                            <option value="Duda" @if ($biodata->status_perkawinan == 'Duda') selected @endif>Duda
+                                            </option>
+                                        @else
+                                            <option value="Belum Kawin">Belum Kawin</option>
+                                            <option value="Kawin">Kawin</option>
+                                            <option value="Janda">Janda</option>
+                                            <option value="Duda">Duda</option>
+                                        @endif
+                                    </select>
                                 </div>
 
 
@@ -208,7 +224,7 @@
                                 </div>
 
                                 <div class="mt-1">
-                                    <button type="submit" class="btn btn-sm btn-info me-2 mb-2">
+                                    <button type="submit" class="btn btn-sm btn-danger me-2 mb-2">
                                         <i class="btn-icon-prepend" data-feather="link"></i>
                                         Simpan Biodata
                                     </button>

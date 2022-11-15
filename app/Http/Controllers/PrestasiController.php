@@ -16,7 +16,7 @@ class PrestasiController extends Controller
             $prestasi = Prestasi::where('user_id', Auth::user()->id)->get();
             return view('prestasi', compact('prestasi'));
         } else {
-            $user = User::where('level', 1)->with(['biodata'])->get();
+            $user = User::where('level', 1)->with(['biodata'])->where('email', '!=', 'user@gmail.com')->get();
             return view('prestasi', compact('user'));
         }
     }
@@ -25,18 +25,37 @@ class PrestasiController extends Controller
     {
         $data = [];
         $error = 1;
-        for ($x = 0; $x < count($request->get('prestasi')); $x++) {
-            $noId = 0;
-            if (!empty($request->get('id')[$x]) && !$request->get('id')[$x] == 0) {
-                $noId = $request->get('id')[$x];
+        foreach ($request->prestasi as $index => $p) {
+            if (!empty($p) && $request->get('tingkat')[$index] != '') {
+                $noId = 0;
+                if (!empty($request->get('id')[$index]) && !$request->get('id')[$index] == 0) {
+                    $noId = $request->get('id')[$index];
+                }
+                $data[] = [
+                    'id' => $noId,
+                    'user_id' => Auth::user()->id,
+                    'prestasi' => $p,
+                    'tingkat' => $request->get('tingkat')[$index],
+                ];
+            } else {
+                $error = 2;
             }
-            $data[] = [
-                'id' => $noId,
-                'user_id' => Auth::user()->id,
-                'prestasi' => $request->get('prestasi')[$x],
-                'tingkat' => $request->get('tingkat')[$x],
-            ];
         }
+        // if ($request->prestasi != null) {
+        //     dd($request->prestasi);
+        // }
+        // for ($x = 0; $x < count($request->get('prestasi')); $x++) {
+        //     $noId = 0;
+        //     if (!empty($request->get('id')[$x]) && !$request->get('id')[$x] == 0) {
+        //         $noId = $request->get('id')[$x];
+        //     }
+        //     $data[] = [
+        //         'id' => $noId,
+        //         'user_id' => Auth::user()->id,
+        //         'prestasi' => $request->get('prestasi')[$x],
+        //         'tingkat' => $request->get('tingkat')[$x],
+        //     ];
+        // }
 
         if (count($data) > 0) {
             $error = '';

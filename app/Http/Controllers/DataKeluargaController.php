@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 
 
 use App\Models\DataKeluarga;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DataKeluargaController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $datakeluarga = DataKeluarga::all();
 
-        if(Auth::user()->level == 1) {
+        if (Auth::user()->level == 1) {
             $user_id = Auth::user()->id;
             $datakeluarga = DataKeluarga::where('user_id', $user_id)->first();
+            return view('datakeluarga', ['datakeluarga' => $datakeluarga])->with('error', 0);
+        } else {
+            $user = User::where('level', 1)->where('email', '!=', 'user@gmail.com')->get();
+            return view('datakeluarga', compact('user'));
         }
-        return view('datakeluarga', ['datakeluarga' => $datakeluarga])->with('error', 0);
     }
 
 
@@ -31,7 +36,7 @@ class DataKeluargaController extends Controller
 
         try {
 
-            if($request->id > 0) {
+            if ($request->id > 0) {
                 // update data
                 // $method = 'update';
                 $datakeluarga = DataKeluarga::find($request->id);
@@ -56,10 +61,8 @@ class DataKeluargaController extends Controller
             $datakeluarga->save();
 
             return redirect(route('datakeluarga'))->with('error', '');
-
-        } catch (QueryException $e){
+        } catch (QueryException $e) {
             return redirect(route('datakeluarga'))->with('error', 1);
         }
     }
-
 }

@@ -15,6 +15,7 @@
     <!-- end plugin css -->
     <link href="{{ asset('css/prism.css') }}" rel="stylesheet" />
     <!-- common css -->
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet" />
     <!-- end common css -->
@@ -68,7 +69,6 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/feather.min.js') }}"></script>
     <script src="{{ asset('js/perfect-scrollbar.min.js') }}"></script>
-    {{-- <script src="{{asset('js/table2excel.js')}}"></script> --}}
     <!-- end base js -->
 
     <!-- plugin js -->
@@ -82,41 +82,155 @@
     <script src="{{ asset('js/pdfmake.min.js') }}"></script>
     <script src="{{ asset('js/vfs_fonts.js') }}"></script>
     <script src="{{ asset('js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('js/html2canvas.min.js') }}"></script>
+    <script src="{{ asset('js/inputmask.min.js') }}"></script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/chart.min.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 
     <script>
-        var table = $('#table');
-        var fileName = table.attr("data-fileName");
+        @if (\Illuminate\Support\Facades\Auth::user()->level >= 2 && Request::url() === route('dashboard'))
+            var style = {
+                primary: "#6571ff",
+                secondary: "#7987a1",
+                success: "#05a34a",
+                success2: "#00e396",
+                info: "#66d1d1",
+                warning: "#fbbc06",
+                danger: "#ff3366",
+                light: "#e9ecef",
+                dark: "#060c17",
+                muted: "#7987a1",
+                muted2: "#a19c8a",
+                gridBorder: "rgba(77, 138, 240, .15)",
+                bodyColor: "#000",
+                cardBg: "#fff",
+                fontSize: '12px'
+            };
 
-        $(document).ready(function() {
-            var tabel = $('#table').DataTable({
-                dom: "<'row'<'col-md-4'l><'col-md-4'B><'col-md-4'f>>" +
-                    "<'row'<'col-md-12'tr>>" +
-                    "<'row'<'col-md-5'i><'col-md-7'p>>",
-                lengthMenu: [
-                    [5, 10, 20, 50, -1],
-                    ['5', '10', '20', '50', 'Semua']
-                ],
-                buttons: [{
-                        extend: 'excelHtml5',
-                        title: fileName + ' PPDB LKP TC'
+            const ctxJurusanBar = $('#jurusanBarChart')[0].getContext('2d');
+            const ctxjkPie = $('#jkPieChart')[0].getContext('2d');
+            const ctxKelulusanDoughnut = $('#kelulusanDoughnutChart')[0].getContext('2d');
+
+            const dataJurusanBar = {
+                labels: <?= json_encode($namaJurusan) ?>,
+                datasets: [{
+                        label: 'Pilihan 1',
+                        data: [
+                            <?= $jurusan11 ?>,
+                            <?= $jurusan21 ?>,
+                            <?= $jurusan31 ?>
+                        ],
+                        backgroundColor: style.primary
                     },
                     {
-                        extend: 'pdfHtml5',
-                        orientation: 'landscape',
-                        pageSize: 'A4',
-                        title: fileName + ' PPDB LKP TC',
-                        exportOptions: {
-                            columns: [0, 1, 2, 4, 6, 7, 8, 9]
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        title: fileName + ' PPDB LKP TC'
+                        label: 'Pilihan 2',
+                        data: [
+                            <?= $jurusan12 ?>,
+                            <?= $jurusan22 ?>,
+                            <?= $jurusan32 ?>
+                        ],
+                        backgroundColor: style.danger
+
                     }
                 ]
+            };
+
+            const dataJkPie = {
+                labels: ['Laki-Laki', 'Perempuan', 'Belum Diisi'],
+                datasets: [{
+                    label: '',
+                    data: [
+                        <?= $jkL ?>,
+                        <?= $jkP ?>,
+                        <?= count($user) - $jkL - $jkP ?>
+                    ],
+                    backgroundColor: [
+                        style.info,
+                        style.success2,
+                        style.secondary
+                    ]
+                }]
+            };
+
+            const dataKelulusanDoughnut = {
+                labels: ['Lulus', 'Tidak Lulus', 'Belum Diisi'],
+                datasets: [{
+                    label: '',
+                    data: [
+                        <?= $kelulusan0 ?>,
+                        <?= $kelulusan1 ?>,
+                        <?= count($user) - $kelulusan0 - $kelulusan1 ?>
+                    ],
+                    backgroundColor: [
+                        style.warning,
+                        style.danger,
+                        style.muted2
+                    ]
+                }]
+            };
+
+            const jurusanBarChart = new Chart(ctxJurusanBar, {
+                type: 'bar',
+                data: dataJurusanBar,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: style.muted,
+                                font: {
+                                    size: style.fontSize
+                                }
+                            }
+                        }
+                    }
+                }
             });
 
-        });
+            const jkPieChart = new Chart(ctxjkPie, {
+                type: 'pie',
+                data: dataJkPie,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: style.muted,
+                                font: {
+                                    size: style.fontSize
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const kelulusanDoughnutChart = new Chart(ctxKelulusanDoughnut, {
+                type: 'doughnut',
+                data: dataKelulusanDoughnut,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: style.muted,
+                                font: {
+                                    size: style.fontSize
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        @endif
     </script>
 
 </body>

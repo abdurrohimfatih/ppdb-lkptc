@@ -18,7 +18,7 @@ class NilaiController extends Controller
             $postnilai = PostNilai::where('user_id', Auth::user()->id)->get();
             return view('nilai', compact('nilai', 'postnilai'));
         } else {
-            $user = User::where('level', 1)->get();
+            $user = User::where('level', 1)->where('email', '!=', 'user@gmail.com')->get();
             return view('nilai', compact('user'));
         }
     }

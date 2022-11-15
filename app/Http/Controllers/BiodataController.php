@@ -17,7 +17,7 @@ class BiodataController extends Controller
             $biodata = Biodata::where('user_id', $user_id)->first();
             return view('biodata', ['biodata' => $biodata])->with('error', 0);
         } else {
-            $user = User::where('level', 1)->get();
+            $user = User::where('level', 1)->where('email', '!=', 'user@gmail.com')->get();
             return view('biodata', compact('user'));
         }
     }

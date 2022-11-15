@@ -20,7 +20,7 @@ class JurusanController extends Controller
             $postJurusan = PostJurusan::where('user_id', Auth::user()->id)->get();
             return view('jurusan', compact('jurusan', 'postJurusan'));
         } else {
-            $user = User::where('level', 1)->get();
+            $user = User::where('level', 1)->where('email', '!=', 'user@gmail.com')->get();
             return view('jurusan', compact('user'));
         }
     }
@@ -54,31 +54,71 @@ class JurusanController extends Controller
 
     public function storePostJurusan(Request $request)
     {
-        $data = [];
-        $error = 1;
-        if (count($request->jurusan) > 0) {
-            $countid = 0;
-            foreach ($request->jurusan as $index => $j) {
-                if (!empty($j) && $j != 0) {
-                    $noId = 0;
-                    if (!empty($request->get('id')[$index])) {
-                        $noId = $request->get('id')[$index];
-                    }
-                    $data[] = [
-                        'id' => $noId,
-                        'user_id' => Auth::user()->id,
-                        'jurusan_id' => $j,
-                        'kat' => ($countid + 1)
-                    ];
+        if (!empty($request->get('id')[0])) {
+            $id1 = $request->get('id')[0];
+        } else {
+            $id1 = null;
+        }
 
-                    $countid++;
-                }
-            }
+        if (!empty($request->get('id')[1])) {
+            $id2 = $request->get('id')[1];
+        } else {
+            $id2 = null;
         }
-        if (count($data) > 0) {
-            $error = '';
+
+        try {
+            $data = [
+                [
+                    'id' => $id1,
+                    'user_id' => $request->user_id,
+                    'jurusan_id' => $request->jurusan1,
+                    'kat' => 1
+                ],
+                [
+                    'id' => $id2,
+                    'user_id' => $request->user_id,
+                    'jurusan_id' => $request->jurusan2,
+                    'kat' => 2
+                ]
+            ];
+
+            PostJurusan::upsert($data, ['id', 'user_id', 'jurusan_id', 'kat']);
+            return redirect(route('jurusan'))->with('error', '');
+        } catch (QueryException $e) {
+            return redirect(route('jurusan'))->with('error', 1);
         }
-        PostJurusan::upsert($data, ['id', 'user_id', 'jurusan_id', 'kat']);
-        return redirect(route('jurusan'))->with('error', $error);
+
+        // $postJurusan->user_id = $request->user_id;
+        // $postJurusan->jurusan_id = $request->jurusan1;
+        // $postJurusan->kat = 1;
+
+        // $postJurusan->user_id = $request->user_id;
+        // $postJurusan->jurusan_id = $request->jurusan2;
+        // $postJurusan->kat = 2;
+
+        // $data = [];
+        // $error = 1;
+        // if (count($request->jurusan) > 0) {
+        //     $countid = 0;
+        //     foreach ($request->jurusan as $index => $j) {
+        //         if (!empty($j) && $j != 0) {
+        //             $noId = 0;
+        //             if (!empty($request->get('id')[$index])) {
+        //                 $noId = $request->get('id')[$index];
+        //             }
+        //             $data[] = [
+        //                 'id' => $noId,
+        //                 'user_id' => Auth::user()->id,
+        //                 'jurusan_id' => $j,
+        //                 'kat' => ($countid + 1)
+        //             ];
+
+        //             $countid++;
+        //         }
+        //     }
+        // }
+        // if (count($data) > 0) {
+        //     $error = '';
+        // }
     }
 }
