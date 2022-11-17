@@ -1,5 +1,5 @@
-var table = $('#table');
-var fileName = table.attr("data-fileName");
+let table = $('#table');
+let fileName = table.attr("data-fileName");
 
 $(document).ready(function() {
     $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn';
@@ -22,9 +22,9 @@ $(document).ready(function() {
                 orientation: 'landscape',
                 pageSize: 'A4',
                 title: fileName + ' PPDB LKP TC',
-                exportOptions: {
-                    columns: [0, 1, 2, 4, 6, 7, 8, 9]
-                },
+                // exportOptions: {
+                //     columns: [0, 1, 2, 4, 6, 7, 8, 9]
+                // },
                 className: 'btn-primary'
             },
             {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 
 $('#cetak-kartu').on('click', function() {
     html2canvas(document.getElementById("card")).then(function(canvas) {
-        var anchorTag = document.createElement("a");
+        let anchorTag = document.createElement("a");
         anchorTag.download = "Kartu Login Ujian.jpg";
         anchorTag.href = canvas.toDataURL();
         anchorTag.target = '_blank';
@@ -65,6 +65,82 @@ $('#datetime').on('mouseenter', function() {
 
 $(document).on('select2:open', () => {
     document.querySelector('.select2-search__field').focus();
+});
+
+$('#register-form').validate({
+    rules: {
+        name: {
+            required: true,
+            minlength: 3
+        },
+        email: {
+            required: true,
+            email: true
+        },
+        password: {
+            required: true,
+            minlength: 6
+        }
+    },
+    messages: {
+        name: {
+            required: "Nama wajib diisi",
+            minlength: "Masukkan nama minimal 3 huruf"
+        },
+        email: {
+            required: "Email wajib diisi",
+            email: "Masukkan email yang benar"
+        },
+        password: {
+            required: "Password wajib diisi",
+            minlength: "Masukkan password minimal 6 digit"
+        }
+    },
+    errorPlacement: function(label, element) {
+        label.addClass('tx-12 text-danger');
+        label.insertBefore(element);
+    },
+    highlight: function(element, errorClass) {
+        $(element).parent().addClass('validation-error');
+        $(element).addClass('border-danger');
+    },
+    unhighlight: function(element, errorClass) {
+        $(element).parent().removeClass('validation-error');
+        $(element).removeClass('border-danger');
+    }
+});
+
+$('#login-form').validate({
+    rules: {
+        email: {
+            required: true,
+            email: true
+        },
+        password: {
+            required: true
+        }
+    },
+    messages: {
+        email: {
+            required: "Email wajib diisi",
+            email: "Masukkan email yang benar"
+        },
+        password: {
+            required: "Password wajib diisi"
+        }
+    },
+    errorPlacement: function(label, element) {
+        label.addClass('tx-12 text-danger');
+        label.insertBefore(element);
+    },
+    highlight: function(element, errorClass) {
+        $(element).parent().addClass('validation-error');
+        $(element).addClass('border-danger');
+    },
+    unhighlight: function(element, errorClass) {
+        $(element).parent().removeClass('validation-error');
+        $(element).removeClass('border-danger');
+    }
 });
 
 $('#biodata-form').validate({
@@ -95,6 +171,10 @@ $('#biodata-form').validate({
     highlight: function(element, errorClass) {
         $(element).parent().addClass('validation-error');
         $(element).addClass('border-danger');
+    },
+    unhighlight: function(element, errorClass) {
+        $(element).parent().removeClass('validation-error');
+        $(element).removeClass('border-danger');
     }
 });
 
@@ -122,6 +202,10 @@ $('#jurusan-form').validate({
     highlight: function(element, errorClass) {
         $(element).parent().addClass('validation-error');
         $(element).addClass('border-danger');
+    },
+    unhighlight: function(element, errorClass) {
+        $(element).parent().removeClass('validation-error');
+        $(element).removeClass('border-danger');
     }
 });
 
@@ -161,6 +245,10 @@ $('#datakeluarga-form').validate({
     highlight: function(element, errorClass) {
         $(element).parent().addClass('validation-error');
         $(element).addClass('border-danger');
+    },
+    unhighlight: function(element, errorClass) {
+        $(element).parent().removeClass('validation-error');
+        $(element).removeClass('border-danger');
     }
 });
 
@@ -192,7 +280,7 @@ $('#modal-form').validate({
         },
         password: {
             required: "Password wajib diisi",
-            minlength: "Masukkan password minimal 6 huruf"
+            minlength: "Masukkan password minimal 6 digit"
         },
         waktu: {
             required: "Tanggal & waktu ujian wajib diisi"
@@ -208,5 +296,9 @@ $('#modal-form').validate({
     highlight: function(element, errorClass) {
         $(element).parent().addClass('validation-error');
         $(element).addClass('border-danger');
+    },
+    unhighlight: function(element, errorClass) {
+        $(element).parent().removeClass('validation-error');
+        $(element).removeClass('border-danger');
     }
 });

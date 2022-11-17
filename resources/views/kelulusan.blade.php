@@ -47,7 +47,7 @@
                                             @if ($u->biodata != null)
                                                 <td>{{ $u->biodata->nama_lengkap }}</td>
                                             @else
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
 
                                             <td>{{ $u->email }}</td>
@@ -61,7 +61,7 @@
                                                     @endif
                                                 </td>
                                             @else
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
                                         </tr>
                                     @endforeach

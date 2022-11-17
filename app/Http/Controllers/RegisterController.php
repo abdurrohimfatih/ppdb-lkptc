@@ -23,7 +23,7 @@ class RegisterController extends Controller
         ]);
 
         $user = new User;
-        $user->name = $request->name;
+        $user->name = ucwords($request->name);
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->level = 1; // 1 =user

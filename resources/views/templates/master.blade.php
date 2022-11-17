@@ -91,7 +91,7 @@
 
     <script>
         @if (\Illuminate\Support\Facades\Auth::user()->level >= 2 && Request::url() === route('dashboard'))
-            var style = {
+            let style = {
                 primary: "#6571ff",
                 secondary: "#7987a1",
                 success: "#05a34a",

@@ -15,6 +15,7 @@
                                 <thead>
                                     <tr>
                                         <th>NO</th>
+                                        <th>FOTO</th>
                                         <th>NAMA</th>
                                         <th>EMAIL</th>
                                         <th>JENIS KELAMIN</th>
@@ -35,27 +36,72 @@
                                             <td>{{ $loop->iteration }}</td>
 
                                             @if ($u->biodata != null)
+                                                <td>
+                                                    @if ($u->biodata->img_user != null)
+                                                        <img src="{{ asset('storage/upload/img/') . '/' . $u->biodata->img_user }}"
+                                                            alt="Foto User" width="36">
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $u->biodata->nama_lengkap }}</td>
                                                 <td>{{ $u->email }}</td>
                                                 <td>{{ $u->biodata->jenis_kelamin }}</td>
                                                 <td>{{ $u->biodata->no_telp }}</td>
-                                                <td>{{ $u->biodata->tempat_lahir }}</td>
+                                                <td>
+                                                    @if ($u->biodata->tempat_lahir != null)
+                                                        {{ $u->biodata->tempat_lahir }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
 
                                                 @php
                                                     $date = date_create($u->biodata->tgl_lahir);
                                                 @endphp
 
                                                 <td>{{ date_format($date, 'd-m-Y') }}</td>
-                                                <td>{{ $u->biodata->status_perkawinan }}</td>
-                                                <td>{{ $u->biodata->agama }}</td>
-                                                <td>{{ $u->biodata->anak_ke }}</td>
-                                                <td>{{ $u->biodata->jumlah_saudara }}</td>
-                                                <td>{{ $u->biodata->alamat_lengkap }}</td>
+                                                <td>
+                                                    @if ($u->biodata->status_perkawinan != null)
+                                                        {{ $u->biodata->status_perkawinan }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($u->biodata->agama != null)
+                                                        {{ $u->biodata->agama }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($u->biodata->anak_ke != null)
+                                                        {{ $u->biodata->anak_ke }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($u->biodata->jumlah_saudara != null)
+                                                        {{ $u->biodata->jumlah_saudara }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($u->biodata->alamat_lengkap != null)
+                                                        {{ $u->biodata->alamat_lengkap }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
                                             @else
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
+                                                <td><span class="text-danger">-</span></td>
                                                 <td>{{ $u->email }}</td>
                                                 @for ($i = 0; $i < 9; $i++)
-                                                    <td><i class="link-danger">-</i></td>
+                                                    <td><span class="text-danger">-</span></td>
                                                 @endfor
                                             @endif
                                         </tr>
@@ -99,16 +145,20 @@
 
                                 @php
                                     $imguser = 'no-img.png';
-                                    if (!empty($biodata)) {
+                                    if (!empty($biodata->img_user)) {
                                         $imguser = $biodata->img_user ?? null;
                                     }
                                 @endphp
 
-                                <div class="mb-3 mt-1 d-flex align-items-center">
-                                    <!--                            <img width="80px" alt="User Img" src="{{ asset('storage/upload/img/') . '/' . $imguser }}">-->
-                                    <!--                            <div class="ms-2">-->
-                                    <!--                                <input type="file" class="form-control" name="img_user" id="img_user">-->
-                                    <!--                            </div>-->
+                                <div class="mb-3 mt-4">
+                                    <label for="img_user">
+                                        <div class="form-label text-muted">Foto</div>
+                                        <div class="d-flex align-items-center">
+                                            <img width="80px" alt="User Img"
+                                                src="{{ asset('storage/upload/img/') . '/' . $imguser }}">
+                                            <input type="file" class="form-control ms-2" name="img_user" id="img_user">
+                                        </div>
+                                    </label>
                                 </div>
 
 
@@ -213,7 +263,7 @@
                                 <div class="mb-3 mt-1">
                                     <label for="jumlah_saudara" class="form-label text-muted">Jumlah Saudara</label>
                                     <input type="text" class="form-control" name="jumlah_saudara" id="jumlah_saudara"
-                                        placeholder="jumlah saudara" value="{{ $biodata->jumlah_saudara ?? null }}">
+                                        placeholder="Jumlah saudara" value="{{ $biodata->jumlah_saudara ?? null }}">
                                 </div>
 
 

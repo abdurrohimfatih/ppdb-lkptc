@@ -37,7 +37,7 @@
                                             @if ($u->biodata != null)
                                                 <td>{{ $u->biodata->nama_lengkap }}</td>
                                             @else
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
 
                                             <td>{{ $u->email }}</td>
@@ -45,17 +45,53 @@
                                             @if ($u->datakeluarga != null)
                                                 <td>{{ $u->datakeluarga->nama_ayah }}</td>
                                                 <td>{{ $u->datakeluarga->pekerjaan_ayah }}</td>
-                                                <td>{{ $u->datakeluarga->usia_ayah }}</td>
-                                                <td>{{ $u->datakeluarga->alamat_ayah }}</td>
-                                                <td>{{ $u->datakeluarga->no_telp_ayah }}</td>
+                                                <td>
+                                                    @if ($u->datakeluarga->usia_ayah != null)
+                                                        {{ $u->datakeluarga->usia_ayah }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($u->datakeluarga->alamat_ayah != null)
+                                                        {{ $u->datakeluarga->alamat_ayah }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($u->datakeluarga->no_telp_ayah != null)
+                                                        {{ $u->datakeluarga->no_telp_ayah }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $u->datakeluarga->nama_ibu }}</td>
                                                 <td>{{ $u->datakeluarga->pekerjaan_ibu }}</td>
-                                                <td>{{ $u->datakeluarga->usia_ibu }}</td>
-                                                <td>{{ $u->datakeluarga->alamat_ibu }}</td>
-                                                <td>{{ $u->datakeluarga->no_telp_ibu }}</td>
+                                                <td>
+                                                    @if ($u->datakeluarga->usia_ibu != null)
+                                                        {{ $u->datakeluarga->usia_ibu }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($u->datakeluarga->alamat_ibu != null)
+                                                        {{ $u->datakeluarga->alamat_ibu }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($u->datakeluarga->no_telp_ibu != null)
+                                                        {{ $u->datakeluarga->no_telp_ibu }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
                                             @else
                                                 @for ($i = 0; $i < 10; $i++)
-                                                    <td><i class="link-danger">-</i></td>
+                                                    <td><span class="text-danger">-</span></td>
                                                 @endfor
                                             @endif
                                         </tr>
@@ -157,8 +193,8 @@
                                     <div class="mb-3 mt-4">
                                         <label for="pekerjaan_ibu" class="form-label text-muted">Pekerjaan Ibu<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="pekerjaan_ibu" id="pekerjaan_ibu"
-                                            placeholder="Masukkan pekerjaan ibu anda"
+                                        <input type="text" class="form-control" name="pekerjaan_ibu"
+                                            id="pekerjaan_ibu" placeholder="Masukkan pekerjaan ibu anda"
                                             value="{{ $datakeluarga->pekerjaan_ibu ?? null }}">
                                     </div>
 

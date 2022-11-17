@@ -13,8 +13,9 @@ class PrestasiController extends Controller
     {
         $prestasi = Prestasi::all();
         if (Auth::user()->level == 1) {
+            $user = User::where('id', Auth::user()->id)->first();
             $prestasi = Prestasi::where('user_id', Auth::user()->id)->get();
-            return view('prestasi', compact('prestasi'));
+            return view('prestasi', compact(['user', 'prestasi']));
         } else {
             $user = User::where('level', 1)->with(['biodata'])->where('email', '!=', 'user@gmail.com')->get();
             return view('prestasi', compact('user'));

@@ -101,18 +101,24 @@
                                                 <td>{{ $u->biodata->nama_lengkap }}</td>
                                                 <td>{{ $u->biodata->jenis_kelamin }}</td>
                                             @else
-                                                <td><i class="link-danger">-</i></td>
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
 
                                             <td>{{ $u->email }}</td>
 
                                             @if ($u->biodata != null)
                                                 <td>{{ $u->biodata->no_telp }}</td>
-                                                <td>{{ $u->biodata->alamat_lengkap }}</td>
+                                                <td>
+                                                    @if ($u->biodata->alamat_lengkap != null)
+                                                        {{ $u->biodata->alamat_lengkap }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
                                             @else
-                                                <td><i class="link-danger">-</i></td>
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
 
                                             @if ($u->jurusan->isNotEmpty())
@@ -122,11 +128,11 @@
                                                     @endforeach
                                                 @else
                                                     <td>{{ $j->jurusan_name }}</td>
-                                                    <td><i class="link-danger">-</i></td>
+                                                    <td><span class="text-danger">-</span></td>
                                                 @endif
                                             @else
-                                                <td><i class="link-danger">-</i></td>
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
 
                                             @if ($u->postNilai->isNotEmpty())
@@ -139,20 +145,26 @@
                                                     <td>{{ $nilai }}</td>
                                                 @endforeach
                                             @else
-                                                <td><i class="link-danger">-</i></td>
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
 
                                             @if ($u->biodata != null)
-                                                <td>{{ $u->biodata->tempat_lahir }}</td>
+                                                <td>
+                                                    @if ($u->biodata->tempat_lahir != null)
+                                                        {{ $u->biodata->tempat_lahir }}
+                                                    @else
+                                                        <span class="text-danger">-</span>
+                                                    @endif
+                                                </td>
                                             @else
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
 
                                             @if ($u->jadwal != null)
                                                 <td>{{ $u->jadwal->password }}</td>
                                             @else
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
                                             {{-- <td>
                                                 <button type="button" class="btn btn-success" data-bs-toggle="modal"

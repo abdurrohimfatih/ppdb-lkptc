@@ -17,8 +17,9 @@ class KelulusanController extends Controller
             return view('kelulusan', compact('user'));
         } else {
             $user_id = Auth::user()->id;
+            $user = User::where('id', $user_id)->first();
             $kelulusan = Kelulusan::where('user_id', $user_id)->first();
-            return view('kelulusan', compact('kelulusan'));
+            return view('kelulusan', compact(['user', 'kelulusan']));
         }
     }
 

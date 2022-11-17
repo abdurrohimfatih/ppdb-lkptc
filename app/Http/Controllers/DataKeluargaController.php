@@ -17,8 +17,9 @@ class DataKeluargaController extends Controller
 
         if (Auth::user()->level == 1) {
             $user_id = Auth::user()->id;
+            $user = User::where('id', $user_id)->first();
             $datakeluarga = DataKeluarga::where('user_id', $user_id)->first();
-            return view('datakeluarga', ['datakeluarga' => $datakeluarga])->with('error', 0);
+            return view('datakeluarga', compact(['user', 'datakeluarga']))->with('error', 0);
         } else {
             $user = User::where('level', 1)->where('email', '!=', 'user@gmail.com')->get();
             return view('datakeluarga', compact('user'));
@@ -47,15 +48,15 @@ class DataKeluargaController extends Controller
             }
 
             $datakeluarga->user_id = $request->user_id;
-            $datakeluarga->nama_ayah = $request->nama_ayah;
-            $datakeluarga->pekerjaan_ayah = $request->pekerjaan_ayah;
+            $datakeluarga->nama_ayah = ucwords($request->nama_ayah);
+            $datakeluarga->pekerjaan_ayah = ucwords($request->pekerjaan_ayah);
             $datakeluarga->usia_ayah = $request->usia_ayah;
-            $datakeluarga->alamat_ayah = $request->alamat_ayah;
+            $datakeluarga->alamat_ayah = ucwords($request->alamat_ayah);
             $datakeluarga->no_telp_ayah = $request->no_telp_ayah;
-            $datakeluarga->nama_ibu = $request->nama_ibu;
-            $datakeluarga->pekerjaan_ibu = $request->pekerjaan_ibu;
+            $datakeluarga->nama_ibu = ucwords($request->nama_ibu);
+            $datakeluarga->pekerjaan_ibu = ucwords($request->pekerjaan_ibu);
             $datakeluarga->usia_ibu = $request->usia_ibu;
-            $datakeluarga->alamat_ibu = $request->alamat_ibu;
+            $datakeluarga->alamat_ibu = ucwords($request->alamat_ibu);
             $datakeluarga->no_telp_ibu = $request->no_telp_ibu;
 
             $datakeluarga->save();

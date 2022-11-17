@@ -17,8 +17,9 @@ class JurusanController extends Controller
         $postJurusan = '';
 
         if (Auth::user()->level == 1) {
+            $user = User::where('id', Auth::user()->id)->first();
             $postJurusan = PostJurusan::where('user_id', Auth::user()->id)->get();
-            return view('jurusan', compact('jurusan', 'postJurusan'));
+            return view('jurusan', compact(['user', 'jurusan', 'postJurusan']));
         } else {
             $user = User::where('level', 1)->where('email', '!=', 'user@gmail.com')->get();
             return view('jurusan', compact('user'));

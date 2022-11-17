@@ -15,7 +15,9 @@
     <!-- end plugin css -->
     <link href="{{ asset('css/prism.css') }}" rel="stylesheet" />
     <!-- common css -->
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet" />
     <!-- end common css -->
 </head>
 
@@ -37,7 +39,8 @@
                                             class="noble-ui-logo d-block mb-2">{{ config('app.name') }}</a>
                                         <h5 class="text-muted fw-normal mb-4">Untuk Melakukan Pendaftaran! Silahkan
                                             Login atau Daftar Jika Belum Punya Akun</h5>
-                                        <form action="{{ route('processLogin') }}" class="forms-group" method="post">
+                                        <form action="{{ route('processLogin') }}" class="forms-group" method="POST"
+                                            id="login-form">
                                             {{ csrf_field() }}
                                             @if (session('error') == 1)
                                                 <div class="alert alert-danger">
@@ -48,14 +51,14 @@
                                                 <label for="email" class="form-label text-muted">Email<span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" name="email" id="email"
-                                                    placeholder="Enter your email">
+                                                    placeholder="Enter your email" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="password" class="form-label text-muted">Password<span
                                                         class="text-danger">*</span></label>
                                                 <input type="password" class="form-control" name="password"
                                                     id="password" autocomplete="current-password"
-                                                    placeholder="Enter your password">
+                                                    placeholder="Enter your password" required>
                                             </div>
                                             <div>
                                                 <button type="submit" class="btn btn-sm btn-info me-2 mb-2">
@@ -92,6 +95,16 @@
 
     <!-- common js -->
     <script src="{{ asset('js/template.js') }}"></script>
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('js/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('js/html2canvas.min.js') }}"></script>
+    <script src="{{ asset('js/inputmask.min.js') }}"></script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/chart.min.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
     <!-- end common js -->
 
 </body>

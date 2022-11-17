@@ -32,8 +32,9 @@ class DashboardController extends Controller
 
             return view('dashboard', compact(['user', 'jurusan', 'jurusan11', 'jurusan12', 'jurusan21', 'jurusan22', 'jurusan31', 'jurusan32', 'kelulusan0', 'kelulusan1', 'jkL', 'jkP']));
         } else {
+            $user = User::where('id', Auth::user()->id)->first();
             $jadwal = Jadwal::where('user_id', Auth::user()->id)->get();
-            return view('dashboard', compact('jadwal'));
+            return view('dashboard', compact(['user', 'jadwal']));
         }
     }
 

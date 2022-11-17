@@ -41,7 +41,7 @@
                                             @if ($u->biodata != null)
                                                 <td>{{ $u->biodata->nama_lengkap }}</td>
                                             @else
-                                                <td><i class="link-danger">-</i></td>
+                                                <td><span class="text-danger">-</span></td>
                                             @endif
 
                                             <td>{{ $u->email }}</td>
@@ -50,42 +50,42 @@
                                                 @foreach ($u->postNilai as $pn)
                                                     <td>
                                                         @if ($pn->score_s1 <= 0)
-                                                            <i class="link-danger">0</i>
+                                                            <span class="text-danger">0</span>
                                                         @else
                                                             {{ $pn->score_s1 }}
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($pn->score_s2 <= 0)
-                                                            <i class="link-danger">0</i>
+                                                            <span class="text-danger">0</span>
                                                         @else
                                                             {{ $pn->score_s2 }}
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($pn->score_s3 <= 0)
-                                                            <i class="link-danger">0</i>
+                                                            <span class="text-danger">0</span>
                                                         @else
                                                             {{ $pn->score_s3 }}
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($pn->score_s4 <= 0)
-                                                            <i class="link-danger">0</i>
+                                                            <span class="text-danger">0</span>
                                                         @else
                                                             {{ $pn->score_s4 }}
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($pn->score_s5 <= 0)
-                                                            <i class="link-danger">0</i>
+                                                            <span class="text-danger">0</span>
                                                         @else
                                                             {{ $pn->score_s5 }}
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($pn->score_un <= 0)
-                                                            <i class="link-danger">0</i>
+                                                            <span class="text-danger">0</span>
                                                         @else
                                                             {{ $pn->score_un }}
                                                         @endif
@@ -97,7 +97,7 @@
                                                     @endphp
                                                     <td>
                                                         @if ($avg <= 0)
-                                                            <i class="link-danger">0</i>
+                                                            <span class="text-danger">0</span>
                                                         @else
                                                             {{ $avg }}
                                                         @endif
@@ -105,7 +105,7 @@
                                                 @endforeach
                                             @else
                                                 @for ($i = 0; $i < 14; $i++)
-                                                    <td><i class="link-danger">0</i></td>
+                                                    <td><span class="text-danger">0</span></td>
                                                 @endfor
                                             @endif
                                         </tr>

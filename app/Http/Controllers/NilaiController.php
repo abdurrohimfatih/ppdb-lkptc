@@ -15,8 +15,9 @@ class NilaiController extends Controller
         $nilai = Nilai::all();
         $postnilai = '';
         if (Auth::user()->level == 1) {
+            $user = User::where('id', Auth::user()->id)->first();
             $postnilai = PostNilai::where('user_id', Auth::user()->id)->get();
-            return view('nilai', compact('nilai', 'postnilai'));
+            return view('nilai', compact(['user', 'nilai', 'postnilai']));
         } else {
             $user = User::where('level', 1)->where('email', '!=', 'user@gmail.com')->get();
             return view('nilai', compact('user'));
